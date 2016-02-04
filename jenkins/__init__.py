@@ -1527,3 +1527,9 @@ class Jenkins(object):
                 for p in i['parameters']:
                     params[p['name']] = p['value']
         return params
+
+    def rebuild_job(self, name, number):
+        '''Rebuild with the parameters of given job
+        '''
+        params = self.get_build_parameters(self, name, number)
+        self.build_job(name, params)

@@ -1515,3 +1515,15 @@ class Jenkins(object):
         info = self.get_info()
         if not info['quietingDown']:
             raise JenkinsException('quiet down failed')
+
+    # Extra Functions
+    def get_build_parameters(self, name, number):
+        '''Get job parameters dictionary
+        '''
+        build_info = self.get_build_info(self, name, number)
+        params = {}
+        for i in build_info['actions']:
+            if i.has_key('parameters'):
+                for p in i['parameters']:
+                    params[p['name']] = p['value']
+        return params
